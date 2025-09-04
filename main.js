@@ -12,39 +12,36 @@ function revealSectionsOnScroll() {
 window.addEventListener('scroll', revealSectionsOnScroll);
 window.addEventListener('DOMContentLoaded', revealSectionsOnScroll);
 
-// Animación de navegación suave
-const navLinks = document.querySelectorAll('nav ul li a');
-navLinks.forEach(link => {
-    link.addEventListener('click', function(e) {
-        if (this.hash) {
-            e.preventDefault();
-            document.querySelector(this.hash).scrollIntoView({
-                behavior: 'smooth'
-            });
-        }
+// Lógica del Modal
+const modal = document.getElementById('modal');
+const modalGallery = document.querySelector('.modal-gallery');
+const modalDescription = document.querySelector('.modal-description');
+const closeButton = document.querySelector('.close-button');
+const cards = document.querySelectorAll('.card');
+
+cards.forEach(card => {
+    card.addEventListener('click', () => {
+        const description = card.dataset.description;
+        const images = card.dataset.images.split(',');
+
+        modalGallery.innerHTML = '';
+        images.forEach(src => {
+            const img = document.createElement('img');
+            img.src = src;
+            modalGallery.appendChild(img);
+        });
+
+        modalDescription.textContent = description;
+        modal.style.display = 'block';
     });
 });
 
-// Animación de botón
-const btns = document.querySelectorAll('.btn');
-btns.forEach(btn => {
-    btn.addEventListener('mousedown', () => {
-        btn.style.transform = 'scale(0.97)';
-    });
-    btn.addEventListener('mouseup', () => {
-        btn.style.transform = '';
-    });
-    btn.addEventListener('mouseleave', () => {
-        btn.style.transform = '';
-    });
+closeButton.addEventListener('click', () => {
+    modal.style.display = 'none';
 });
 
-// Validación simple del formulario de contacto
-const form = document.querySelector('.contact-form');
-if (form) {
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        alert('¡Gracias por contactarnos! Pronto te responderemos.');
-        form.reset();
-    });
-}
+window.addEventListener('click', (event) => {
+    if (event.target == modal) {
+        modal.style.display = 'none';
+    }
+});

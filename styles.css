@@ -21,6 +21,9 @@ header.hero {
     color: #fff;
     animation: heroFadeIn 1.2s ease;
     box-shadow: 0 8px 32px rgba(30,60,114,0.10);
+    max-width: 1200px;
+    margin: 2rem auto;
+    border-radius: 24px;
 }
 
 .hero-video {
@@ -98,25 +101,7 @@ nav ul li a:hover {
     color: #fff;
     text-shadow: 1px 1px 8px #1e3c72;
 }
-.btn {
-    background: #ffd700;
-    color: #1e3c72;
-    padding: 1rem 2.5rem;
-    border: none;
-    border-radius: 30px;
-    font-size: 1.2rem;
-    font-weight: 700;
-    cursor: pointer;
-    box-shadow: 0 4px 16px rgba(30,60,114,0.12);
-    transition: background 0.3s, color 0.3s, transform 0.2s;
-    text-decoration: none;
-    display: inline-block;
-}
-.btn:hover {
-    background: #1e3c72;
-    color: #ffd700;
-    transform: scale(1.07);
-}
+
 
 /* --- Secciones tipo galería --- */
 .section {
@@ -208,30 +193,7 @@ footer {
     box-shadow: 0 -2px 16px rgba(30,60,114,0.07);
 }
 
-/* --- Formulario de contacto --- */
-.contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
-    max-width: 400px;
-    margin: 0 auto;
-    background: #f7f9fa;
-    padding: 2rem;
-    border-radius: 18px;
-    box-shadow: 0 2px 12px rgba(30,60,114,0.08);
-}
-.contact-form input,
-.contact-form textarea {
-    padding: 0.8rem;
-    border-radius: 8px;
-    border: 1px solid #cfd8dc;
-    font-size: 1rem;
-    font-family: inherit;
-    resize: none;
-}
-.contact-form button {
-    align-self: flex-end;
-}
+
 
 /* --- Animaciones --- */
 @keyframes heroFadeIn {
@@ -292,4 +254,61 @@ footer {
         border-radius: 12px 12px 0 0;
         padding: 1rem 0;
     }
+}
+
+/* --- Modal --- */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 700px;
+    border-radius: 18px;
+    position: relative;
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.modal-gallery img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.modal-description {
+    font-size: 1.1rem;
+    line-height: 1.6;
 }

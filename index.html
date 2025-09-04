@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Guía turística de El Banco, Magdalena. Descubre los mejores lugares, gastronomía, historia y eventos de este destino en el corazón de Colombia.">
+    <meta name="keywords" content="Turismo, El Banco, Magdalena, Colombia, Viajes, Cumbia, Río Magdalena, Gastronomía, Cultura, Historia">
     <title>Turismo en El Banco, Magdalena</title>
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 </head>
@@ -21,17 +24,17 @@
     <section id="lugares" class="section fade-in">
         <h2>Lugares Turísticos</h2>
         <div class="cards">
-            <div class="card">
+            <div class="card" data-description="El Malecón Turístico de El Banco es un lugar ideal para pasear, disfrutar de la brisa del río y observar los hermosos atardeceres sobre el río Magdalena." data-images="assets/malecon.jpg,assets/malecon2.jpg,assets/malecon3.jpg">
                 <img src="assets/malecon.jpg" alt="Malecón Turístico">
                 <h3>Malecón Turístico</h3>
                 <p>Disfruta de la vista al río Magdalena y de actividades al aire libre.</p>
             </div>
-            <div class="card">
+            <div class="card" data-description="La Iglesia de San Antonio de Padua es una joya arquitectónica de estilo neogótico que data de principios del siglo XX. Es el principal centro religioso del municipio." data-images="assets/iglesia.jpeg,assets/iglesia2.jpg,assets/iglesia3.jpg">
                 <img src="assets/iglesia.jpeg" alt="Iglesia San Antonio de Padua">
                 <h3>Iglesia San Antonio de Padua</h3>
                 <p>Un ícono arquitectónico y espiritual del municipio.</p>
             </div>
-            <div class="card">
+            <div class="card" data-description="El Festival Nacional de la Cumbia se celebra cada año en El Banco, rindiendo homenaje a este ritmo musical que es insignia de Colombia. Durante el festival, la ciudad se llena de música, baile y color." data-images="assets/festival.jpg,assets/festival2.jpg,assets/festival3.jpg">
                 <img src="assets/festival.jpg" alt="Festival Nacional del Caimán">
                 <h3>Festival Nacional del Caimán</h3>
                 <p>Vive la cultura y la tradición en la fiesta más importante de la región.</p>
@@ -64,6 +67,15 @@
     <footer>
         <p>&copy; 2025 Turismo El Banco, Magdalena. Todos los derechos reservados.</p>
     </footer>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <div class="modal-gallery"></div>
+            <p class="modal-description"></p>
+        </div>
+    </div>
+
     <script src="main.js"></script>
 </body>
 </html>
