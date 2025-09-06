@@ -71,4 +71,61 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // --- Lógica del Modo Oscuro/Claro ---
+    const darkModeSwitch = document.getElementById('darkModeSwitch');
+    if(darkModeSwitch) {
+        const htmlElement = document.documentElement;
+        const applyTheme = (theme) => {
+            htmlElement.setAttribute('data-bs-theme', theme);
+            const icon = darkModeSwitch.nextElementSibling.querySelector('i');
+            if (theme === 'dark') {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+                darkModeSwitch.checked = true;
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+                darkModeSwitch.checked = false;
+            }
+        };
+
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        applyTheme(savedTheme);
+
+        darkModeSwitch.addEventListener('change', () => {
+            const newTheme = darkModeSwitch.checked ? 'dark' : 'light';
+            localStorage.setItem('theme', newTheme);
+            applyTheme(newTheme);
+        });
+    }
+
+    // --- Lógica del Filtro de Categorías ---
+    const filterButtonsContainer = document.getElementById('filter-buttons');
+    if (filterButtonsContainer) {
+        const filterButtons = filterButtonsContainer.querySelectorAll('button');
+        const filterItems = document.querySelectorAll('#lugares .filter-item');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                filterButtons.forEach(btn => {
+                    btn.classList.remove('btn-primary');
+                    btn.classList.add('btn-outline-primary');
+                });
+                button.classList.remove('btn-outline-primary');
+                button.classList.add('btn-primary');
+
+                const filter = button.dataset.filter;
+
+                filterItems.forEach(item => {
+                    const categories = item.dataset.category.split(' ');
+                    if (filter === 'all' || categories.includes(filter)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    }
+
 });
