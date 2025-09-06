@@ -7,95 +7,147 @@
     <meta name="keywords" content="Turismo, El Banco, Magdalena, Colombia, Viajes, Cumbia, Río Magdalena, Gastronomía, Cultura, Historia">
     <title>Turismo en El Banco, Magdalena</title>
     <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="bg-light">
+
     <header class="hero">
         <video autoplay muted loop playsinline class="hero-video">
             <source src="assets/fondo.mp4" type="video/mp4">
         </video>
-        
-        <div class="hero-content">
-            <h1>Descubre El Banco, Magdalena</h1>
-            <p>Un destino lleno de historia, cultura y naturaleza</p>
+        <div class="hero-content d-flex align-items-center justify-content-center text-center">
+            <div>
+                <h1 class="display-3 fw-bold text-white">Descubre El Banco, Magdalena</h1>
+                <p class="lead fw-normal text-white-50 mb-0">Un destino lleno de historia, cultura y naturaleza</p>
+            </div>
         </div>
     </header>
-    <section id="lugares" class="section fade-in">
-        <h2>Lugares Turísticos</h2>
-        <div class="feature-list">
-            <div class="feature-item" data-description="El Malecón Turístico de El Banco es un lugar ideal para pasear, disfrutar de la brisa del río y observar los hermosos atardeceres sobre el río Magdalena." data-images="assets/malecon.jpg,assets/malecon2.jpg,assets/malecon3.jpg">
-                <div class="feature-image">
-                    <img src="assets/malecon.jpg" alt="Malecón Turístico">
-                </div>
-                <div class="feature-content">
-                    <h3>Malecón Turístico</h3>
-                    <p>Disfruta de la vista al río Magdalena y de actividades al aire libre en este emblemático lugar, perfecto para caminar y sentir la cultura local.</p>
+
+    <main>
+        <section id="lugares" class="py-5">
+            <div class="container">
+                <h2 class="text-center mb-5">Lugares Turísticos</h2>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100 shadow-sm feature-item" data-description="El Malecón Turístico de El Banco es un lugar ideal para pasear, disfrutar de la brisa del río y observar los hermosos atardeceres sobre el río Magdalena." data-images="assets/malecon.jpg,assets/malecon2.jpg,assets/malecon3.jpg">
+                            <img src="assets/malecon.jpg" class="card-img-top" alt="Malecón Turístico">
+                            <div class="card-body">
+                                <h5 class="card-title">Malecón Turístico</h5>
+                                <p class="card-text">Disfruta de la vista al río Magdalena y de actividades al aire libre en este emblemático lugar.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100 shadow-sm feature-item" data-description="La Iglesia de San Antonio de Padua es una joya arquitectónica de estilo neogótico que data de principios del siglo XX." data-images="assets/iglesia.jpeg,assets/iglesia2.jpg,assets/iglesia3.jpg">
+                            <img src="assets/iglesia.jpeg" class="card-img-top" alt="Iglesia San Antonio de Padua">
+                            <div class="card-body">
+                                <h5 class="card-title">Iglesia San Antonio de Padua</h5>
+                                <p class="card-text">Un ícono arquitectónico y espiritual que se alza con majestuosidad en el municipio.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100 shadow-sm feature-item" data-description="El Festival Nacional de la Cumbia se celebra cada año en El Banco, rindiendo homenaje a este ritmo musical." data-images="assets/festival.jpg,assets/festival2.jpg,assets/festival3.jpg">
+                            <img src="assets/festival.jpg" class="card-img-top" alt="Festival Nacional del Caimán">
+                            <div class="card-body">
+                                <h5 class="card-title">Festival Nacional del Caimán</h5>
+                                <p class="card-text">Vive la cultura y la tradición en la fiesta más importante de la región, un evento lleno de música y alegría.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="feature-item" data-description="La Iglesia de San Antonio de Padua es una joya arquitectónica de estilo neogótico que data de principios del siglo XX. Es el principal centro religioso del municipio." data-images="assets/iglesia.jpeg,assets/iglesia2.jpg,assets/iglesia3.jpg">
-                <div class="feature-image">
-                    <img src="assets/iglesia.jpeg" alt="Iglesia San Antonio de Padua">
-                </div>
-                <div class="feature-content">
-                    <h3>Iglesia San Antonio de Padua</h3>
-                    <p>Un ícono arquitectónico y espiritual del municipio que se alza con majestuosidad y cuenta la historia de la fe local.</p>
+        </section>
+
+        <section id="gastronomia" class="py-5 bg-white">
+            <div class="container">
+                <h2 class="text-center mb-5">Gastronomía</h2>
+                <div class="row">
+                    <div class="col-lg-6 mb-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="row g-0">
+                                <div class="col-md-5">
+                                    <img src="assets/viudo.jpg" class="img-fluid rounded-start" alt="Viudo de pescado">
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Viudo de Pescado</h5>
+                                        <p class="card-text">Un plato típico a base de pescado fresco del río, cocido lentamente con yuca, plátano y ñame.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="row g-0">
+                                <div class="col-md-5">
+                                    <img src="assets/arepa.jpg" class="img-fluid rounded-start" alt="Arepa de huevo">
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Arepa de Huevo</h5>
+                                        <p class="card-text">Una deliciosa arepa frita de maíz, rellena de un huevo entero, un clásico de la costa Caribe.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="feature-item" data-description="El Festival Nacional de la Cumbia se celebra cada año en El Banco, rindiendo homenaje a este ritmo musical que es insignia de Colombia. Durante el festival, la ciudad se llena de música, baile y color." data-images="assets/festival.jpg,assets/festival2.jpg,assets/festival3.jpg">
-                <div class="feature-image">
-                    <img src="assets/festival.jpg" alt="Festival Nacional del Caimán">
-                </div>
-                <div class="feature-content">
-                    <h3>Festival Nacional del Caimán</h3>
-                    <p>Vive la cultura y la tradición en la fiesta más importante de la región, un evento lleno de música, baile y alegría.</p>
+        </section>
+
+        <section id="historia" class="py-5">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h2 class="mb-4">Guía Histórica</h2>
+                        <p class="lead">El Banco es un municipio de Colombia, situado en el sur del departamento de Magdalena, en la confluencia de los ríos Magdalena y Cesar. Fundado en 1680 por José Domingo Ortiz, ha sido un importante puerto fluvial y centro comercial en la región. Conocido como "La Ciudad Imperio de la Cumbia", El Banco es cuna de grandes músicos y compositores, y celebra anualmente el Festival Nacional de la Cumbia.</p>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <img src="assets/iglesia.jpeg" class="img-fluid rounded-circle shadow" alt="Historia de El Banco">
+                    </div>
                 </div>
             </div>
+        </section>
+
+        <section id="mapa" class="py-5 bg-white">
+            <div class="container">
+                <h2 class="text-center mb-5">Mapa Interactivo</h2>
+                <div class="ratio ratio-16x9">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.233237735354!2d-73.978485684681!3d8.99999999351968!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e5eb3a3c5b3f3ab%3A0x5b3f3ab3c5b3f3ab!2sEl%20Banco%2C%20Magdalena%2C%20Colombia!5e0!3m2!1ses!2sco!4v1620000000000!5m2!1ses!2sco" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-dark text-white text-center py-4">
+        <div class="container">
+            <p class="mb-0">&copy; 2025 Turismo El Banco, Magdalena. Todos los derechos reservados.</p>
         </div>
-    </section>
-    <section id="gastronomia" class="section fade-in">
-        <h2>Gastronomía</h2>
-        <div class="feature-list">
-            <div class="feature-item">
-                <div class="feature-image">
-                    <img src="assets/viudo.jpg" alt="Viudo de pescado">
-                </div>
-                <div class="feature-content">
-                    <h3>Viudo de Pescado</h3>
-                    <p>Un plato típico a base de pescado fresco del río Magdalena, cocido lentamente con yuca, plátano y ñame.</p>
-                </div>
-            </div>
-            <div class="feature-item">
-                <div class="feature-image">
-                    <img src="assets/arepa.jpg" alt="Arepa de huevo">
-                </div>
-                <div class="feature-content">
-                    <h3>Arepa de Huevo</h3>
-                    <p>Una deliciosa arepa frita de maíz, rellena de un huevo entero, un clásico de la costa Caribe colombiana.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section id="historia" class="section fade-in">
-        <h2>Guía Histórica</h2>
-        <p>El Banco es un municipio de Colombia, situado en el sur del departamento de Magdalena, en la confluencia de los ríos Magdalena y Cesar. Fundado en 1680 por José Domingo Ortiz, ha sido un importante puerto fluvial y centro comercial en la región. Conocido como "La Ciudad Imperio de la Cumbia", El Banco es cuna de grandes músicos y compositores, y celebra anualmente el Festival Nacional de la Cumbia.</p>
-    </section>
-    <section id="mapa" class="section fade-in">
-        <h2>Mapa Interactivo</h2>
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.233237735354!2d-73.978485684681!3d8.99999999351968!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e5eb3a3c5b3f3ab%3A0x5b3f3ab3c5b3f3ab!2sEl%20Banco%2C%20Magdalena%2C%20Colombia!5e0!3m2!1ses!2sco!4v1620000000000!5m2!1ses!2sco" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-    </section>
-    <footer>
-        <p>&copy; 2025 Turismo El Banco, Magdalena. Todos los derechos reservados.</p>
     </footer>
 
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <div class="modal-gallery"></div>
-            <p class="modal-description"></p>
+    <div class="modal fade" id="galleryModal" tabindex="-1" aria-labelledby="galleryModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="galleryModalLabel">Lugar Turístico</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="modalMainImageContainer" class="mb-3 text-center">
+            <img src="" class="img-fluid rounded" alt="Imagen destacada" id="modalMainImage">
         </div>
+        <p class="modal-description"></p>
+        <div class="modal-gallery d-flex justify-content-center gap-2 flex-wrap"></div>
+      </div>
     </div>
+  </div>
+</div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="main.js"></script>
 </body>
 </html>

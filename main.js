@@ -1,71 +1,60 @@
-// Animación de aparición de secciones al hacer scroll
-function revealSectionsOnScroll() {
-    const sections = document.querySelectorAll('.section');
-    const triggerBottom = window.innerHeight * 0.85;
-    sections.forEach(section => {
-        const sectionTop = section.getBoundingClientRect().top;
-        if (sectionTop < triggerBottom) {
-            section.classList.add('visible');
+document.addEventListener('DOMContentLoaded', () => {
+    // --- Lógica del Modal de Galería con Bootstrap ---
+
+    const galleryModalElement = document.getElementById('galleryModal');
+    const galleryModal = new bootstrap.Modal(galleryModalElement);
+
+    const modalTitle = document.getElementById('galleryModalLabel');
+    const modalDescription = galleryModalElement.querySelector('.modal-description');
+    const modalGallery = galleryModalElement.querySelector('.modal-gallery');
+    const modalMainImage = document.getElementById('modalMainImage');
+
+    document.querySelectorAll('.feature-item').forEach(card => {
+        // Asegurarse de que la tarjeta tiene datos para el modal
+        if (card.dataset.description && card.dataset.images) {
+            card.style.cursor = 'pointer'; // Indica que es clickeable
+            card.addEventListener('click', () => {
+                const title = card.querySelector('.card-title').textContent;
+                const description = card.dataset.description;
+                const images = card.dataset.images.split(',').map(img => img.trim());
+
+                // 1. Poblar el contenido del modal
+                modalTitle.textContent = title;
+                modalDescription.textContent = description;
+                
+                // 2. Limpiar y poblar la galería de miniaturas
+                modalGallery.innerHTML = '';
+                images.forEach((src, index) => {
+                    if (src) {
+                        const img = document.createElement('img');
+                        img.src = src;
+                        img.alt = `Miniatura de ${title} ${index + 1}`;
+                        img.dataset.index = index;
+                        
+                        // Añadir evento para cambiar la imagen principal al hacer clic
+                        img.addEventListener('click', (e) => {
+                            modalMainImage.src = e.target.src;
+                            // Resaltar la miniatura activa
+                            document.querySelectorAll('.modal-gallery img').forEach(i => i.classList.remove('active-image'));
+                            e.target.classList.add('active-image');
+                        });
+
+                        modalGallery.appendChild(img);
+                    }
+                });
+
+                // 3. Establecer la imagen principal inicial y resaltar la primera miniatura
+                if (images.length > 0) {
+                    modalMainImage.src = images[0];
+                    const firstThumbnail = modalGallery.querySelector('img');
+                    if (firstThumbnail) {
+                        firstThumbnail.classList.add('active-image');
+                    }
+                }
+
+                // 4. Mostrar el modal
+                galleryModal.show();
+            });
         }
     });
-}
-window.addEventListener('scroll', revealSectionsOnScroll);
-window.addEventListener('DOMContentLoaded', revealSectionsOnScroll);
-
-// Lógica del Modal
-const modal = document.getElementById('modal');
-const modalGallery = document.querySelector('.modal-gallery');
-const modalDescription = document.querySelector('.modal-description');
-const closeButton = document.querySelector('.close-button');
-const featureItems = document.querySelectorAll('.feature-item');
-
-featureItems.forEach(item => {
-    // Asegurarse de que el item tiene los datos necesarios para el modal
-    if (item.dataset.description && item.dataset.images) {
-        item.addEventListener('click', () => {
-            const description = item.dataset.description;
-            // Limpiar espacios en blanco y crear el array
-            const images = item.dataset.images.split(',').map(img => img.trim());
-
-            // Limpiar la galería anterior
-            modalGallery.innerHTML = '';
-            
-            // Poblar la galería con las nuevas imágenes
-            images.forEach(src => {
-                if (src) { // Asegurarse de que la fuente no esté vacía
-                    const img = document.createElement('img');
-                    img.src = src;
-                    img.alt = description.substring(0, 30); // Añadir alt text por accesibilidad
-                    modalGallery.appendChild(img);
-                }
-            });
-
-            // Añadir la descripción
-            modalDescription.textContent = description;
-            
-            // Mostrar el modal
-            modal.style.display = 'block';
-        });
-    }
-});
-
-// Función para cerrar el modal
-function closeModal() {
-    modal.style.display = 'none';
-}
-
-closeButton.addEventListener('click', closeModal);
-
-window.addEventListener('click', (event) => {
-    // Cerrar si se hace clic fuera del contenido del modal
-    if (event.target == modal) {
-        closeModal();
-    }
-});
-
-// Cerrar con la tecla Escape
-window.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && modal.style.display === 'block') {
-        closeModal();
-    }
 });

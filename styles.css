@@ -1,19 +1,6 @@
 /* --- Estilos Base --- */
-:root {
-    --primary-color: #005A5B; /* Un verde azulado oscuro y elegante */
-    --secondary-color: #E1CBA8; /* Un beige arena cálido */
-    --background-color: #f2f5f7; /* Un gris claro y fresco para el fondo */
-    --text-color: #333333; /* Un gris oscuro para el texto */
-    --light-gray: #f0f0f0;
-    --white: #FFFFFF;
-}
-
 body {
-    margin: 0;
     font-family: 'Montserrat', Arial, sans-serif;
-    background: var(--background-color);
-    color: var(--text-color);
-    min-height: 100vh;
 }
 
 /* --- Header con Video --- */
@@ -24,7 +11,7 @@ header.hero {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--white);
+    color: white;
     text-align: center;
     overflow: hidden;
 }
@@ -37,241 +24,42 @@ header.hero {
     height: 100%;
     object-fit: cover;
     transform: translate(-50%, -50%);
-    z-index: 1;
-    filter: brightness(0.6) blur(2px);
+    z-index: -1;
+    filter: brightness(0.6);
 }
 
 .hero-content {
     position: relative;
-    z-index: 2;
+    z-index: 1;
     padding: 2rem;
     max-width: 800px;
-    animation: fadeInUp 1.2s ease-out;
 }
 
 .hero-content h1 {
-    font-size: 3.5rem;
-    font-weight: 700;
-    margin: 0;
-    color: var(--white);
     text-shadow: 1px 1px 20px rgba(0, 0, 0, 0.7);
 }
 
 .hero-content p {
-    font-size: 1.5rem;
-    margin-top: 1rem;
-    font-weight: 400;
     text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
 }
 
-/* --- Estructura de Secciones --- */
-.section {
-    padding: 5rem 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-}
-
-.section.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.section h2 {
-    text-align: center;
-    font-size: 2.8rem;
-    font-weight: 700;
-    color: var(--primary-color);
-    margin-bottom: 3rem;
-}
-
-/* --- Diseño de Contenido Alternado --- */
-.feature-list {
-    display: flex;
-    flex-direction: column;
-    gap: 4rem;
-}
-
-.feature-item {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    background: var(--white);
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    overflow: hidden;
-    transition: box-shadow 0.3s ease;
-}
-
-.feature-item:hover {
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-}
-
-.feature-item:nth-child(even) {
-    flex-direction: row-reverse;
-}
-
-.feature-image, .feature-content {
-    flex: 1;
-}
-
-.feature-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-.feature-content {
-    padding: 2rem;
-}
-
-.feature-content h3 {
-    margin: 0 0 1rem 0;
-    color: var(--primary-color);
-    font-size: 1.8rem;
-    font-weight: 600;
-}
-
-.feature-content p {
-    font-size: 1.1rem;
-    color: #666;
-    line-height: 1.7;
-}
-
-/* --- Otras Secciones --- */
-#historia p, #mapa iframe {
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-#historia p {
-    padding: 2rem;
-    background: var(--white);
-    line-height: 1.8;
-}
-
-/* --- Footer --- */
-footer {
-    background: var(--primary-color);
-    color: var(--white);
-    text-align: center;
-    padding: 2.5rem 1rem;
-    margin-top: 4rem;
-}
-
-/* --- Modal --- */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    animation: fadeIn 0.3s ease;
-}
-
-.modal-content {
-    background: var(--background-color);
-    margin: 10% auto;
-    padding: 2rem;
-    border-radius: 16px;
-    width: 90%;
-    max-width: 700px;
-    position: relative;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-}
-
-.close-button {
-    position: absolute;
-    top: 1rem;
-    right: 1.5rem;
-    color: #888;
-    font-size: 2.5rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: color 0.2s;
-}
-
-.close-button:hover {
-    color: var(--text-color);
-}
-
-.modal-gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-}
-
+/* --- Estilos para la galería dentro del modal --- */
 .modal-gallery img {
     width: 100%;
-    height: 100px;
+    height: 120px;
     object-fit: cover;
     border-radius: 8px;
     cursor: pointer;
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 2px solid transparent;
 }
 
 .modal-gallery img:hover {
     transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
-.modal-description {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: #555;
-}
-
-/* --- Animaciones --- */
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-/* --- Responsividad --- */
-@media (max-width: 768px) {
-    .hero-content h1 {
-        font-size: 2.5rem;
-    }
-    .hero-content p {
-        font-size: 1.2rem;
-    }
-    .section h2 {
-        font-size: 2.2rem;
-    }
-    .feature-item,
-    .feature-item:nth-child(even) {
-        flex-direction: column;
-    }
-}
-
-@media (max-width: 480px) {
-    .section {
-        padding: 3rem 1rem;
-    }
-    .hero-content h1 {
-        font-size: 2rem;
-    }
-    .hero-content p {
-        font-size: 1rem;
-    }
-    .section h2 {
-        font-size: 1.8rem;
-    }
-    .feature-content {
-        padding: 1.5rem;
-    }
-    .feature-content h3 {
-        font-size: 1.5rem;
-    }
+.modal-gallery .active-image {
+    border-color: #007bff; /* O el color primario que prefieras */
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.5);
 }
