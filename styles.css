@@ -1,14 +1,26 @@
-/* --- Estilos Base --- */
+/* --- Estilos Base y de Navegación --- */
 body {
     font-family: 'Montserrat', Arial, sans-serif;
-    padding-top: 70px; /* Espacio para la barra de navegación fija */
+    padding-top: 0;
+}
+
+.navbar-transparent {
+    background-color: transparent !important;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.navbar-scrolled {
+    background-color: #212529 !important;
+}
+
+.navbar-brand, .nav-link {
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
 }
 
 /* --- Header con Video --- */
-header.hero {
+.hero {
     position: relative;
-    height: 60vh;
-    max-height: 700px;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -27,7 +39,6 @@ header.hero {
     transform: translate(-50%, -50%);
     z-index: -1;
     filter: brightness(0.6);
-    transition: filter 0.3s ease-in-out;
 }
 
 .hero-content {
@@ -35,20 +46,98 @@ header.hero {
     z-index: 1;
     padding: 2rem;
     max-width: 800px;
-}
-
-.hero-content h1 {
     text-shadow: 1px 1px 20px rgba(0, 0, 0, 0.7);
 }
 
-.hero-content p {
-    text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+/* --- Estilos de la Agenda de Eventos --- */
+.agenda-container {
+    display: flex;
+    gap: 2rem;
+    border: 1px solid var(--bs-border-color);
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.07);
 }
 
-/* --- Estilos para la galería dentro del modal --- */
+.agenda-controls {
+    flex: 0 0 250px;
+    text-align: center;
+}
+
+.month-selector {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--bs-light);
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.month-year-display {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.event-list {
+    flex-grow: 1;
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 15px; /* Espacio para la barra de scroll */
+}
+
+.event-item {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    border-radius: 8px;
+    background-color: var(--bs-tertiary-bg);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.event-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.event-date {
+    flex: 0 0 70px;
+    text-align: center;
+    border-right: 2px solid var(--bs-primary);
+    padding-right: 1.5rem;
+}
+
+.event-day {
+    font-size: 2rem;
+    font-weight: bold;
+    display: block;
+}
+
+.event-month {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    color: var(--bs-secondary-color);
+}
+
+.event-details h5 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: var(--bs-primary);
+}
+
+.no-events {
+    text-align: center;
+    padding: 2rem;
+    font-style: italic;
+    color: var(--bs-secondary-color);
+}
+
+/* --- Estilos para Modales y Secciones --- */
 .modal-gallery img {
-    width: 100%;
-    height: 120px;
+    width: 100px;
+    height: 75px;
     object-fit: cover;
     border-radius: 8px;
     cursor: pointer;
@@ -58,88 +147,30 @@ header.hero {
 
 .modal-gallery img:hover {
     transform: scale(1.05);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
 .modal-gallery .active-image {
-    border-color: #007bff;
-    box-shadow: 0 0 15px rgba(0, 123, 255, 0.5);
+    border-color: var(--bs-primary);
 }
 
-/* --- Estilos de la Línea de Tiempo --- */
-.timeline {
-    list-style: none;
-    padding: 20px 0 20px;
-    position: relative;
-}
-
-.timeline:before {
-    top: 0;
-    bottom: 0;
-    position: absolute;
-    content: " ";
-    width: 3px;
-    background-color: #eeeeee;
-    left: 50%;
-    margin-left: -1.5px;
-    transition: background-color 0.3s ease-in-out;
-}
-
-.timeline-item {
-    margin-bottom: 20px;
-    position: relative;
-}
-
-.timeline-item:before,
-.timeline-item:after {
-    content: " ";
-    display: table;
-}
-
-.timeline-item:after {
-    clear: both;
-}
-
-.timeline-item .timeline-panel {
-    width: 46%;
-    float: left;
-    border: 1px solid var(--bs-border-color);
+#modalMainImageContainer {
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bs-tertiary-bg);
     border-radius: 8px;
-    padding: 20px;
-    position: relative;
-    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
-    transition: background-color 0.3s ease-in-out;
 }
 
-.timeline-item.timeline-inverted .timeline-panel {
-    float: right;
+#modalMainImage {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
 }
 
-.timeline-item .timeline-badge {
-    color: #fff;
-    width: 50px;
-    height: 50px;
-    line-height: 50px;
-    font-size: 1.4em;
-    text-align: center;
-    position: absolute;
-    top: 16px;
-    left: 50%;
-    margin-left: -25px;
-    background-color: #999999;
-    z-index: 100;
-    border-radius: 50%;
-}
-
-.timeline-badge.primary { background-color: #0d6efd !important; }
-.timeline-badge.warning { background-color: #ffc107 !important; }
-.timeline-badge.danger { background-color: #dc3545 !important; }
-
-.timeline-title { margin-top: 0; }
-
-.timeline-body > p,
-.timeline-body > ul {
-    margin-bottom: 0;
+.accordion-button:not(.collapsed) {
+    color: var(--bs-accordion-btn-color);
+    background-color: var(--bs-accordion-active-bg);
 }
 
 /* --- Temas de Color (Modo Oscuro/Claro) --- */
@@ -147,39 +178,16 @@ header.hero {
     filter: brightness(0.4);
 }
 
-[data-bs-theme="dark"] .timeline:before {
-    background-color: #444;
-}
-
-[data-bs-theme="dark"] .bg-white {
-    background-color: var(--bs-tertiary-bg) !important;
-}
-
-[data-bs-theme="dark"] .text-muted {
-    color: #adb5bd !important;
-}
-
-[data-bs-theme="dark"] .card {
-    --bs-card-bg: #2a2a2a;
+[data-bs-theme="dark"] .month-selector {
+    background-color: #343a40;
 }
 
 /* --- Media Queries --- */
 @media (max-width: 768px) {
-    .timeline:before {
-        left: 35px;
+    .agenda-container {
+        flex-direction: column;
     }
-
-    .timeline-item .timeline-panel {
-        width: calc(100% - 90px);
-        float: right;
-    }
-
-    .timeline-item .timeline-badge {
-        left: 35px;
-        margin-left: -15px;
-    }
-
-    .timeline-item.timeline-inverted .timeline-panel {
-        float: right;
+    .agenda-controls {
+        flex: 0 0 auto;
     }
 }
