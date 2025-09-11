@@ -2,6 +2,7 @@
 body {
     font-family: 'Montserrat', Arial, sans-serif;
     padding-top: 0;
+    background-color: #f8f9fa;
 }
 
 .navbar-transparent {
@@ -49,92 +50,76 @@ body {
     text-shadow: 1px 1px 20px rgba(0, 0, 0, 0.7);
 }
 
-/* --- Estilos de la Agenda de Eventos --- */
-.agenda-container {
-    display: flex;
-    gap: 2rem;
-    border: 1px solid var(--bs-border-color);
-    border-radius: 10px;
-    padding: 2rem;
+/* --- Estilos de la Agenda de Eventos (Línea de Tiempo Vertical) --- */
+#eventos.bg-light {
+    background-color: #f8f9fa !important;
+}
+
+.timeline-list {
+    position: relative;
+    padding: 2rem 0;
+}
+
+.timeline-list::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 40px;
+    height: 100%;
+    width: 4px;
+    background: #e9ecef;
+    border-radius: 2px;
+}
+
+.timeline-card {
+    position: relative;
+    margin-left: 80px;
+    margin-bottom: 2rem;
+    background: #fff;
+    border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.07);
-}
-
-.agenda-controls {
-    flex: 0 0 250px;
-    text-align: center;
-}
-
-.month-selector {
+    padding: 1.5rem;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    background-color: var(--bs-light);
-    padding: 10px;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-}
-
-.month-year-display {
-    font-weight: bold;
-    font-size: 1.2rem;
-}
-
-.event-list {
-    flex-grow: 1;
-    max-height: 400px;
-    overflow-y: auto;
-    padding-right: 15px; /* Espacio para la barra de scroll */
-}
-
-.event-item {
-    display: flex;
     gap: 1.5rem;
-    margin-bottom: 1.5rem;
-    padding: 1rem;
-    border-radius: 8px;
-    background-color: var(--bs-tertiary-bg);
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.event-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+.timeline-card::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: -52px;
+    height: 20px;
+    width: 20px;
+    background: #0d6efd;
+    border: 4px solid #fff;
+    border-radius: 50%;
+    z-index: 1;
 }
 
-.event-date {
-    flex: 0 0 70px;
-    text-align: center;
-    border-right: 2px solid var(--bs-primary);
-    padding-right: 1.5rem;
-}
-
-.event-day {
-    font-size: 2rem;
+.timeline-date {
+    font-size: 1.5rem;
     font-weight: bold;
-    display: block;
+    color: #0d6efd;
 }
 
-.event-month {
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    color: var(--bs-secondary-color);
+.timeline-content h5 {
+    font-weight: bold;
 }
 
-.event-details h5 {
-    margin-top: 0;
-    margin-bottom: 0.5rem;
-    color: var(--bs-primary);
-}
-
-.no-events {
+.no-events-timeline {
     text-align: center;
     padding: 2rem;
     font-style: italic;
-    color: var(--bs-secondary-color);
+    color: #6c757d;
+    margin-left: 80px;
 }
 
 /* --- Estilos para Modales y Secciones --- */
+.bg-white {
+    background-color: #fff !important;
+}
+
 .modal-gallery img {
     width: 100px;
     height: 75px;
@@ -150,7 +135,7 @@ body {
 }
 
 .modal-gallery .active-image {
-    border-color: var(--bs-primary);
+    border-color: #0d6efd;
 }
 
 #modalMainImageContainer {
@@ -158,7 +143,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--bs-tertiary-bg);
+    background-color: #f8f9fa;
     border-radius: 8px;
 }
 
@@ -169,25 +154,19 @@ body {
 }
 
 .accordion-button:not(.collapsed) {
-    color: var(--bs-accordion-btn-color);
-    background-color: var(--bs-accordion-active-bg);
-}
-
-/* --- Temas de Color (Modo Oscuro/Claro) --- */
-[data-bs-theme="dark"] .hero-video {
-    filter: brightness(0.4);
-}
-
-[data-bs-theme="dark"] .month-selector {
-    background-color: #343a40;
+    color: #0c63e4;
+    background-color: #e7f1ff;
 }
 
 /* --- Media Queries --- */
 @media (max-width: 768px) {
-    .agenda-container {
-        flex-direction: column;
+    .timeline-list::before {
+        left: 20px;
     }
-    .agenda-controls {
-        flex: 0 0 auto;
+    .timeline-card {
+        margin-left: 40px;
+    }
+    .timeline-card::before {
+        left: -32px;
     }
 }

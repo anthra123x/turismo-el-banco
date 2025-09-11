@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Optimización: Almacenamiento en caché de elementos del DOM ---
     const navbar = document.querySelector('.navbar');
-    const darkModeSwitch = document.getElementById('darkModeSwitch');
     const filterButtonsContainer = document.getElementById('filter-buttons');
     const galleryModalElement = document.getElementById('galleryModal');
     const eventModalElement = document.getElementById('eventModal');
@@ -19,13 +18,13 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('scroll', handleScroll);
     }
 
-    // --- Lógica de la Agenda de Eventos (con datos integrados) ---
-    const agendaContainer = document.querySelector('.agenda-container');
-    if (agendaContainer) {
-        const monthYearElement = document.getElementById('month-year-agenda');
-        const eventListElement = document.getElementById('event-list');
-        const prevMonthButton = document.getElementById('prev-month-agenda');
-        const nextMonthButton = document.getElementById('next-month-agenda');
+    // --- Lógica de la Agenda de Eventos (Diseño de Línea de Tiempo Vertical) ---
+    const timelineContainer = document.querySelector('.timeline-container');
+    if (timelineContainer) {
+        const monthYearElement = document.getElementById('month-year-timeline');
+        const timelineListElement = document.getElementById('timeline-list');
+        const prevMonthButton = document.getElementById('prev-month-timeline');
+        const nextMonthButton = document.getElementById('next-month-timeline');
         const eventModal = new bootstrap.Modal(eventModalElement);
         const eventModalTitle = document.getElementById('eventModalLabel');
         const eventDetailsElement = document.getElementById('event-details');
@@ -34,87 +33,72 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // ====================================================================
         // ====> ¡AQUÍ PUEDES EDITAR TUS EVENTOS! <====
-        // Simplemente añade o modifica elementos en este array.
-        // Formato de fecha: "MES-DIA"
+        // month: 1 (Enero) a 12 (Diciembre)
         // ====================================================================
         const allEvents = [
             {
-                "date": "2-2",
-                "title": "Aniversario de Fundación",
-                "description": "Se conmemora la fundación del municipio con actos cívicos, desfiles y eventos culturales que resaltan la importancia histórica de El Banco como puerto y centro de comercio."
+                month: 2, day: 2,
+                title: "Aniversario de Fundación",
+                description: "Se conmemora la fundación del municipio con actos cívicos, desfiles y eventos culturales que resaltan la importancia histórica de El Banco como puerto y centro de comercio."
             },
             {
-                "date": "6-24",
-                "title": "Festival Nacional de la Cumbia",
-                "description": "El evento cultural más emblemático de El Banco. Un homenaje al maestro José Barros y una celebración de la cumbia como patrimonio colombiano, que atrae a artistas y turistas de todo el país."
+                month: 6, day: 24,
+                title: "Festival Nacional de la Cumbia",
+                description: "El evento cultural más emblemático de El Banco. Un homenaje al maestro José Barros y una celebración de la cumbia como patrimonio colombiano, que atrae a artistas y turistas de todo el país."
             },
             {
-                "date": "9-16",
-                "title": "Día de Amor y Amistad",
-                "description": "Una fecha especial para celebrar la amistad y el amor, con diversas actividades comerciales y culturales en el municipio."
+                month: 9, day: 16,
+                title: "Día de Amor y Amistad",
+                description: "Una fecha especial para celebrar la amistad y el amor, con diversas actividades comerciales y culturales en el municipio."
             },
             {
-                "date": "12-8",
-                "title": "Fiestas de la Inmaculada Concepción",
-                "description": "El inicio de la temporada navideña se marca con esta tradicional fiesta patronal, que incluye procesiones, música y el famoso día de las velitas."
+                month: 12, day: 8,
+                title: "Fiestas de la Inmaculada Concepción",
+                description: "El inicio de la temporada navideña se marca con esta tradicional fiesta patronal, que incluye procesiones, música y el famoso día de las velitas."
             }
         ];
 
-        // Función para renderizar la agenda
-        const renderAgenda = () => {
+        const renderTimeline = () => {
             const year = currentDate.getFullYear();
-            const month = currentDate.getMonth();
+            const month = currentDate.getMonth(); // 0-11
 
             monthYearElement.textContent = `${currentDate.toLocaleString('es-ES', { month: 'long' }).toUpperCase()} ${year}`;
-            eventListElement.innerHTML = '';
+            timelineListElement.innerHTML = '';
 
             const eventsForMonth = allEvents
-                .filter(event => parseInt(event.date.split('-')[0]) === month + 1)
-                .sort((a, b) => parseInt(a.date.split('-')[1]) - parseInt(b.date.split('-')[1]));
+                .filter(event => event.month === month + 1)
+                .sort((a, b) => a.day - b.day);
 
             if (eventsForMonth.length === 0) {
-                eventListElement.innerHTML = '<div class="no-events">No hay eventos programados para este mes.</div>';
+                timelineListElement.innerHTML = '<div class="no-events-timeline">No hay eventos programados para este mes.</div>';
                 return;
             }
 
             eventsForMonth.forEach(event => {
-                const day = event.date.split('-')[1];
                 const eventElement = document.createElement('div');
-                eventElement.classList.add('event-item');
+                eventElement.classList.add('timeline-card');
                 eventElement.innerHTML = `
-                    <div class="event-date">
-                        <span class="event-day">${day}</span>
-                        <span class="event-month">${currentDate.toLocaleString('es-ES', { month: 'short' }).toUpperCase()}</span>
-                    </div>
-                    <div class="event-details">
+                    <div class="timeline-date">${event.day}</div>
+                    <div class="timeline-content">
                         <h5>${event.title}</h5>
-                        <p>${event.description.substring(0, 100)}...</p>
+                        <p>${event.description}</p>
                     </div>
                 `;
-
-                eventElement.addEventListener('click', () => {
-                    eventModalTitle.textContent = event.title;
-                    eventDetailsElement.textContent = event.description;
-                    eventModal.show();
-                });
-
-                eventListElement.appendChild(eventElement);
+                timelineListElement.appendChild(eventElement);
             });
         };
 
-        // Navegación del mes
         prevMonthButton.addEventListener('click', () => {
             currentDate.setMonth(currentDate.getMonth() - 1);
-            renderAgenda();
+            renderTimeline();
         });
 
         nextMonthButton.addEventListener('click', () => {
             currentDate.setMonth(currentDate.getMonth() + 1);
-            renderAgenda();
+            renderTimeline();
         });
-        
-        // Renderizar por primera vez
-        renderAgenda();
+
+        renderTimeline();
     }
 
     // --- Lógica del Modal de Galería (Optimizada) ---
@@ -185,34 +169,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-
-    // --- Lógica del Modo Oscuro/Claro ---
-    if (darkModeSwitch) {
-        const htmlElement = document.documentElement;
-        const moonIcon = '<i class="fas fa-moon text-light"></i>';
-        const sunIcon = '<i class="fas fa-sun text-warning"></i>';
-        const themeLabel = darkModeSwitch.nextElementSibling;
-
-        const applyTheme = (theme) => {
-            htmlElement.setAttribute('data-bs-theme', theme);
-            if (theme === 'dark') {
-                themeLabel.innerHTML = sunIcon;
-                darkModeSwitch.checked = true;
-            } else {
-                themeLabel.innerHTML = moonIcon;
-                darkModeSwitch.checked = false;
-            }
-        };
-
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        applyTheme(savedTheme);
-
-        darkModeSwitch.addEventListener('change', () => {
-            const newTheme = darkModeSwitch.checked ? 'dark' : 'light';
-            localStorage.setItem('theme', newTheme);
-            applyTheme(newTheme);
-        });
-    }
 
     // --- Lógica del Filtro de Categorías ---
     if (filterButtonsContainer) {

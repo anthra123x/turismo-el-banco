@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 </head>
-<body class="bg-light" data-bs-spy="scroll" data-bs-target="#navbarNav" data-bs-offset="70">
+<body data-bs-spy="scroll" data-bs-target="#navbarNav" data-bs-offset="70">
 
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top navbar-transparent">
   <div class="container">
@@ -39,12 +39,6 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#mapa">Mapa</a>
-        </li>
-        <li class="nav-item ms-lg-3">
-          <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="darkModeSwitch">
-            <label class="form-check-label" for="darkModeSwitch"><i class="fas fa-moon text-light"></i></label>
-          </div>
         </li>
       </ul>
     </div>
@@ -157,18 +151,20 @@
             </div>
         </section>
 
-        <section id="eventos" class="py-5 bg-white">
+        <section id="eventos" class="py-5 bg-light">
             <div class="container">
-                <h2 class="text-center mb-5">Agenda de Eventos</h2>
-                <div class="agenda-container">
-                    <div class="agenda-controls">
-                        <div class="month-selector">
-                            <button id="prev-month-agenda" class="btn btn-light"><i class="fas fa-chevron-left"></i></button>
-                            <div id="month-year-agenda" class="month-year-display"></div>
-                            <button id="next-month-agenda" class="btn btn-light"><i class="fas fa-chevron-right"></i></button>
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <h2 class="text-center mb-5">Agenda de Eventos</h2>
+                        <div class="timeline-container">
+                            <div id="timeline-controls" class="text-center mb-4">
+                                <button id="prev-month-timeline" class="btn btn-outline-primary"><i class="fas fa-chevron-left"></i></button>
+                                <span id="month-year-timeline" class="mx-4 fs-4 fw-bold"></span>
+                                <button id="next-month-timeline" class="btn btn-outline-primary"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                            <div id="timeline-list" class="timeline-list"></div>
                         </div>
                     </div>
-                    <div id="event-list" class="event-list"></div>
                 </div>
             </div>
         </section>
