@@ -9,10 +9,236 @@
     <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- Estilos Base y de Navegación --- */
+        body {
+            font-family: 'Montserrat', Arial, sans-serif;
+            padding-top: 0;
+            background-color: #f8f9fa;
+        }
+
+        .navbar-transparent {
+            background-color: transparent !important;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .navbar-scrolled {
+            background-color: #212529 !important;
+        }
+
+        .navbar-brand, .nav-link {
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+        }
+
+        /* --- Header con Video --- */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            filter: brightness(0.6);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            padding: 2rem;
+            max-width: 800px;
+            text-shadow: 1px 1px 20px rgba(0, 0, 0, 0.7);
+        }
+
+        /* --- Filtros de Lugares Turísticos --- */
+        #filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        /* --- Estilos de Tarjetas (Lugares, Gastronomía) --- */
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+
+        /* --- Estilos de la Agenda de Eventos (Línea de Tiempo Vertical) --- */
+        #eventos.bg-light {
+            background-color: #f8f9fa !important;
+        }
+
+        .timeline-list {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline-list::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 40px;
+            height: 100%;
+            width: 4px;
+            background: #e9ecef;
+            border-radius: 2px;
+        }
+
+        .timeline-card {
+            position: relative;
+            margin-left: 80px;
+            margin-bottom: 1.5rem;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .timeline-card .timeline-icon {
+            position: absolute;
+            top: 50%;
+            left: -52px;
+            transform: translateY(-50%);
+            height: 40px;
+            width: 40px;
+            background: #0d6efd;
+            color: white;
+            border: 4px solid #f8f9fa;
+            border-radius: 50%;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .timeline-content h5 {
+            font-weight: bold;
+        }
+
+        .no-events-timeline {
+            text-align: center;
+            padding: 2rem;
+            font-style: italic;
+            color: #6c757d;
+        }
+
+        /* --- Animaciones de Scroll --- */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Estilos para Modales y Secciones --- */
+        .bg-white {
+            background-color: #fff !important;
+        }
+
+        .modal-gallery img {
+            width: 100px;
+            height: 75px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 2px solid transparent;
+        }
+
+        .modal-gallery img:hover {
+            transform: scale(1.05);
+        }
+
+        .modal-gallery .active-image {
+            border-color: #0d6efd;
+        }
+
+        #modalMainImageContainer {
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        #modalMainImage {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+        }
+
+        .accordion-button:not(.collapsed) {
+            color: #0c63e4;
+            background-color: #e7f1ff;
+        }
+
+        /* --- Media Queries para Responsividad --- */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .timeline-list::before {
+                left: 20px;
+            }
+            .timeline-card {
+                margin-left: 50px;
+                gap: 1rem;
+            }
+            .timeline-card .timeline-icon {
+                left: -20px;
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            #gastronomia .card .row {
+                flex-direction: column;
+            }
+            #gastronomia .card .col-md-5,
+            #gastronomia .card .col-md-7 {
+                width: 100%;
+            }
+            #gastronomia .card img {
+                height: 200px;
+                object-fit: cover;
+                border-radius: 8px 8px 0 0;
+            }
+            .timeline-card {
+                margin-left: 40px;
+            }
+        }
+    </style>
 </head>
-<body data-bs-spy="scroll" data-bs-target="#navbarNav" data-bs-offset="70">
+<body>
 
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top navbar-transparent">
   <div class="container">
@@ -21,218 +247,201 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto align-items-center">
-        <li class="nav-item">
-          <a class="nav-link" href="#lugares">Lugares</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#gastronomia">Gastronomía</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#historia">Historia</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#eventos">Eventos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#consejos">Consejos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#mapa">Mapa</a>
-        </li>
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="#lugares">Lugares</a></li>
+        <li class="nav-item"><a class="nav-link" href="#gastronomia">Gastronomía</a></li>
+        <li class="nav-item"><a class="nav-link" href="#historia">Historia</a></li>
+        <li class="nav-item"><a class="nav-link" href="#eventos">Eventos</a></li>
+        <li class="nav-item"><a class="nav-link" href="#consejos">Consejos</a></li>
+        <li class="nav-item"><a class="nav-link" href="#mapa">Mapa</a></li>
       </ul>
     </div>
   </div>
 </nav>
 
-    <header class="hero">
-        <video autoplay muted loop playsinline class="hero-video">
-            <source src="assets/fondo.mp4" type="video/mp4">
-        </video>
-        <div class="hero-content d-flex align-items-center justify-content-center text-center">
-            <div>
-                <h1 class="display-3 fw-bold text-white">Descubre El Banco, Magdalena</h1>
-                <p class="lead fw-normal text-white-50 mb-0">Un destino lleno de historia, cultura y naturaleza</p>
-            </div>
-        </div>
-    </header>
+<header class="hero">
+    <video autoplay muted loop playsinline class="hero-video">
+        <source src="assets/fondo.mp4" type="video/mp4">
+    </video>
+    <div class="hero-content">
+        <h1 class="display-3 fw-bold text-white">Descubre El Banco, Magdalena</h1>
+        <p class="lead fw-normal text-white-50 mb-0">Un destino lleno de historia, cultura y naturaleza</p>
+    </div>
+</header>
 
-    <main>
-        <section id="lugares" class="py-5">
-            <div class="container">
-                <h2 class="text-center mb-4">Lugares Turísticos</h2>
-                <div id="filter-buttons" class="text-center mb-5">
-                    <button class="btn btn-primary" data-filter="all">Todos</button>
-                    <button class="btn btn-outline-primary" data-filter="cultura">Cultura</button>
-                    <button class="btn btn-outline-primary" data-filter="historia">Historia</button>
-                    <button class="btn btn-outline-primary" data-filter="recreacion">Recreación</button>
-                </div>
-                <div class="row">
-                    <div class="col-lg-4 col-md-6 mb-4 filter-item" data-category="recreacion">
-                        <div class="card h-100 shadow-sm feature-item" data-description="El Malecón Turístico de El Banco es un lugar ideal para pasear, disfrutar de la brisa del río y observar los hermosos atardeceres sobre el río Magdalena." data-images="assets/malecon.jpg,assets/malecon2.jpg,assets/malecon3.jpg">
-                            <img src="assets/malecon.jpg" class="card-img-top" alt="Malecón Turístico">
-                            <div class="card-body">
-                                <h5 class="card-title">Malecón Turístico</h5>
-                                <p class="card-text">Disfruta de la vista al río Magdalena y de actividades al aire libre en este emblemático lugar.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 mb-4 filter-item" data-category="historia cultura">
-                        <div class="card h-100 shadow-sm feature-item" data-description="La Iglesia de San Antonio de Padua es una joya arquitectónica de estilo neogótico que data de principios del siglo XX." data-images="assets/iglesia.jpeg,assets/iglesia2.jpg,assets/iglesia3.jpg">
-                            <img src="assets/iglesia.jpeg" class="card-img-top" alt="Iglesia San Antonio de Padua">
-                            <div class="card-body">
-                                <h5 class="card-title">Iglesia San Antonio de Padua</h5>
-                                <p class="card-text">Un ícono arquitectónico y espiritual que se alza con majestuosidad en el municipio.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 mb-4 filter-item" data-category="cultura">
-                        <div class="card h-100 shadow-sm feature-item" data-description="El Festival Nacional de la Cumbia se celebra cada año en El Banco, rindiendo homenaje a este ritmo musical." data-images="assets/festival.jpg,assets/festival2.jpg,assets/festival3.jpg">
-                            <img src="assets/festival.jpg" class="card-img-top" alt="Festival Nacional del Caimán">
-                            <div class="card-body">
-                                <h5 class="card-title">Festival Nacional del Caimán</h5>
-                                <p class="card-text">Vive la cultura y la tradición en la fiesta más importante de la región, un evento lleno de música y alegría.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="gastronomia" class="py-5 bg-white">
-            <div class="container">
-                <h2 class="text-center mb-5">Gastronomía</h2>
-                <div class="row">
-                    <div class="col-lg-6 mb-4">
-                        <div class="card h-100 shadow-sm">
-                            <div class="row g-0">
-                                <div class="col-md-5">
-                                    <img src="assets/viudo.jpg" class="img-fluid rounded-start" alt="Viudo de pescado">
-                                </div>
-                                <div class="col-md-7">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Viudo de Pescado</h5>
-                                        <p class="card-text">Un plato típico a base de pescado fresco del río, cocido lentamente con yuca, plátano y ñame.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 mb-4">
-                        <div class="card h-100 shadow-sm">
-                            <div class="row g-0">
-                                <div class="col-md-5">
-                                    <img src="assets/arepa.jpg" class="img-fluid rounded-start" alt="Arepa de huevo">
-                                </div>
-                                <div class="col-md-7">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Arepa de Huevo</h5>
-                                        <p class="card-text">Una deliciosa arepa frita de maíz, rellena de un huevo entero, un clásico de la costa Caribe.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="historia" class="py-5">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-md-8">
-                        <h2 class="mb-4">Guía Histórica</h2>
-                        <p class="lead">El Banco es un municipio de Colombia, situado en el sur del departamento de Magdalena, en la confluencia de los ríos Magdalena y Cesar. Fundado en 1680 por José Domingo Ortiz, ha sido un importante puerto fluvial y centro comercial en la región. Conocido como "La Ciudad Imperio de la Cumbia", El Banco es cuna de grandes músicos y compositores, y celebra anualmente el Festival Nacional de la Cumbia.</p>
-                    </div>
-                    <div class="col-md-4 text-center">
-                        <img src="assets/iglesia.jpeg" class="img-fluid rounded-circle shadow" alt="Historia de El Banco">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="eventos" class="py-5 bg-light">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 mx-auto">
-                        <h2 class="text-center mb-5">Agenda de Eventos</h2>
-                        <div class="timeline-container">
-                            <div id="timeline-controls" class="text-center mb-4">
-                                <button id="prev-month-timeline" class="btn btn-outline-primary"><i class="fas fa-chevron-left"></i></button>
-                                <span id="month-year-timeline" class="mx-4 fs-4 fw-bold"></span>
-                                <button id="next-month-timeline" class="btn btn-outline-primary"><i class="fas fa-chevron-right"></i></button>
-                            </div>
-                            <div id="timeline-list" class="timeline-list"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="consejos" class="py-5">
-            <div class="container">
-                <h2 class="text-center mb-5">Consejos para el Viajero</h2>
-                <div class="accordion" id="accordionConsejos">
-                    <!-- Consejo 1 -->
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingOne">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                Mejor Época para Visitar
-                            </button>
-                        </h2>
-                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionConsejos">
-                            <div class="accordion-body">
-                                La mejor época para visitar El Banco es durante la estación seca, entre diciembre y marzo. El clima es más agradable y podrás disfrutar de todas las actividades al aire libre. Si te interesa la cultura, junio es ideal por el Festival Nacional de la Cumbia.
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Consejo 2 -->
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingTwo">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                ¿Qué Ropa Llevar?
-                            </button>
-                        </h2>
-                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionConsejos">
-                            <div class="accordion-body">
-                                El clima en El Banco es cálido y húmedo. Te recomendamos empacar ropa ligera y transpirable de algodón, sombrero o gorra, gafas de sol y protector solar. No olvides un repelente de insectos, especialmente para las tardes y noches. Un impermeable ligero puede ser útil si viajas en temporada de lluvias.
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Consejo 3 -->
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingThree">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                Transporte Local
-                            </button>
-                        </h2>
-                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionConsejos">
-                            <div class="accordion-body">
-                                El principal medio de transporte dentro del casco urbano es el mototaxi, una forma rápida y económica de moverse. También hay taxis disponibles. Para explorar los alrededores y el río, puedes contratar botes o lanchas en el puerto del malecón.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="mapa" class="py-5 bg-white">
-            <div class="container">
-                <h2 class="text-center mb-5">Mapa Interactivo</h2>
-                <div class="ratio ratio-16x9">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.233237735354!2d-73.978485684681!3d8.99999999351968!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e5eb3a3c5b3f3ab%3A0x5b3f3ab3c5b3f3ab!2sEl%20Banco%2C%20Magdalena%2C%20Colombia!5e0!3m2!1ses!2sco!4v1620000000000!5m2!1ses!2sco" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="bg-dark text-white text-center py-4">
+<main>
+    <section id="lugares" class="py-5">
         <div class="container">
-            <p class="mb-0">&copy; 2025 Turismo El Banco, Magdalena. Todos los derechos reservados.</p>
+            <h2 class="text-center mb-4">Lugares Turísticos</h2>
+            <div id="filter-buttons" class="text-center mb-5">
+                <button class="btn btn-primary" data-filter="all">Todos</button>
+                <button class="btn btn-outline-primary" data-filter="cultura">Cultura</button>
+                <button class="btn btn-outline-primary" data-filter="historia">Historia</button>
+                <button class="btn btn-outline-primary" data-filter="recreacion">Recreación</button>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4 filter-item" data-category="recreacion">
+                    <div class="card h-100 shadow-sm feature-item" data-description="El Malecón Turístico de El Banco es un lugar ideal para pasear, disfrutar de la brisa del río y observar los hermosos atardeceres sobre el río Magdalena." data-images="assets/malecon.jpg,assets/arepa.jpg,assets/viudo.jpg">
+                        <img src="assets/malecon.jpg" class="card-img-top" alt="Malecón Turístico">
+                        <div class="card-body">
+                            <h5 class="card-title">Malecón Turístico</h5>
+                            <p class="card-text">Disfruta de la vista al río Magdalena y de actividades al aire libre.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4 filter-item" data-category="historia cultura">
+                    <div class="card h-100 shadow-sm feature-item" data-description="La Iglesia de San Antonio de Padua es una joya arquitectónica de estilo neogótico que data de principios del siglo XX." data-images="assets/iglesia.jpeg,assets/festival.jpg,assets/malecon.jpg">
+                        <img src="assets/iglesia.jpeg" class="card-img-top" alt="Iglesia San Antonio de Padua">
+                        <div class="card-body">
+                            <h5 class="card-title">Iglesia San Antonio de Padua</h5>
+                            <p class="card-text">Un ícono arquitectónico y espiritual que se alza en el municipio.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4 filter-item" data-category="cultura">
+                    <div class="card h-100 shadow-sm feature-item" data-description="El Festival Nacional de la Cumbia se celebra cada año en El Banco, rindiendo homenaje a este ritmo musical." data-images="assets/festival.jpg,assets/iglesia.jpeg,assets/arepa.jpg">
+                        <img src="assets/festival.jpg" class="card-img-top" alt="Festival Nacional del Caimán">
+                        <div class="card-body">
+                            <h5 class="card-title">Festival Nacional del Caimán</h5>
+                            <p class="card-text">Vive la cultura y la tradición en la fiesta más importante de la región.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </footer>
+    </section>
 
-    <div class="modal fade" id="galleryModal" tabindex="-1" aria-labelledby="galleryModalLabel" aria-hidden="true">
+    <section id="gastronomia" class="py-5 bg-white">
+        <div class="container">
+            <h2 class="text-center mb-5">Gastronomía</h2>
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <div class="card h-100 shadow-sm feature-item" data-description="El viudo de pescado es un plato insignia de la región, cocido al vapor con yuca, ñame, plátano y ahuyama." data-images="assets/viudo.jpg,assets/arepa.jpg,assets/malecon.jpg">
+                        <div class="row g-0">
+                            <div class="col-md-5">
+                                <img src="assets/viudo.jpg" class="img-fluid rounded-start" alt="Viudo de pescado">
+                            </div>
+                            <div class="col-md-7">
+                                <div class="card-body">
+                                    <h5 class="card-title">Viudo de Pescado</h5>
+                                    <p class="card-text">Plato típico a base de pescado fresco del río, cocido lentamente.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="card h-100 shadow-sm feature-item" data-description="La arepa de huevo es un frito típico de la Costa Caribe colombiana. ¡Perfecta para el desayuno!" data-images="assets/arepa.jpg,assets/viudo.jpg,assets/festival.jpg">
+                        <div class="row g-0">
+                            <div class="col-md-5">
+                                <img src="assets/arepa.jpg" class="img-fluid rounded-start" alt="Arepa de huevo">
+                            </div>
+                            <div class="col-md-7">
+                                <div class="card-body">
+                                    <h5 class="card-title">Arepa de Huevo</h5>
+                                    <p class="card-text">Deliciosa arepa frita de maíz, rellena de un huevo entero.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="historia" class="py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h2 class="mb-4">Guía Histórica</h2>
+                    <p class="lead">El Banco es un municipio de Colombia, situado en el sur del departamento de Magdalena, en la confluencia de los ríos Magdalena y Cesar. Fundado en 1680 por José Domingo Ortiz, ha sido un importante puerto fluvial y centro comercial en la región. Conocido como "La Ciudad Imperio de la Cumbia", El Banco es cuna de grandes músicos y compositores, y celebra anualmente el Festival Nacional de la Cumbia.</p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <img src="assets/iglesia.jpeg" class="img-fluid rounded-circle shadow" alt="Historia de El Banco">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="eventos" class="py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="text-center mb-5">Agenda de Eventos</h2>
+                    <div class="timeline-container">
+                        <div id="timeline-controls" class="text-center mb-4">
+                            <button id="prev-month-timeline" class="btn btn-outline-primary"><i class="fas fa-chevron-left"></i></button>
+                            <span id="month-year-timeline" class="mx-4 fs-4 fw-bold"></span>
+                            <button id="next-month-timeline" class="btn btn-outline-primary"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                        <div id="timeline-list" class="timeline-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="consejos" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Consejos para el Viajero</h2>
+            <div class="accordion" id="accordionConsejos">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            <i class="fas fa-sun me-3"></i> Mejor Época para Visitar
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionConsejos">
+                        <div class="accordion-body">
+                            La mejor época para visitar El Banco es durante la estación seca, entre diciembre y marzo. El clima es más agradable y podrás disfrutar de todas las actividades al aire libre. Si te interesa la cultura, junio es ideal por el Festival Nacional de la Cumbia.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            <i class="fas fa-suitcase-rolling me-3"></i> ¿Qué Ropa Llevar?
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionConsejos">
+                        <div class="accordion-body">
+                            El clima en El Banco es cálido y húmedo. Te recomendamos empacar ropa ligera y transpirable de algodón, sombrero o gorra, gafas de sol y protector solar. No olvides un repelente de insectos, especialmente para las tardes y noches. Un impermeable ligero puede ser útil si viajas en temporada de lluvias.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            <i class="fas fa-taxi me-3"></i> Transporte Local
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionConsejos">
+                        <div class="accordion-body">
+                            El principal medio de transporte dentro del casco urbano es el mototaxi, una forma rápida y económica de moverse. También hay taxis disponibles. Para explorar los alrededores y el río, puedes contratar botes o lanchas en el puerto del malecón.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="mapa" class="py-5 bg-white">
+        <div class="container">
+            <h2 class="text-center mb-5">Mapa Interactivo</h2>
+            <div class="ratio ratio-16x9">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.233237735354!2d-73.978485684681!3d8.99999999351968!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e5eb3a3c5b3f3ab%3A0x5b3f3ab3c5b3f3ab!2sEl%20Banco%2C%20Magdalena%2C%20Colombia!5e0!3m2!1ses!2sco!4v1620000000000!5m2!1ses!2sco" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="bg-dark text-white text-center py-4">
+    <div class="container">
+        <p class="mb-0">&copy; 2025 Turismo El Banco, Magdalena. Todos los derechos reservados.</p>
+    </div>
+</footer>
+
+<div class="modal fade" id="galleryModal" tabindex="-1" aria-labelledby="galleryModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -250,16 +459,199 @@
   </div>
 </div>
 
-    <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="eventModalLabel">Evento</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p id="event-details"></p>
-            </div>
+<div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="eventModalLabel">Evento</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <p id="event-details"></p>
         </div>
     </div>
 </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+    // --- Lógica para la barra de navegación transparente ---
+    const navbar = document.querySelector('.navbar');
+    if (navbar) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('navbar-scrolled');
+            } else {
+                navbar.classList.remove('navbar-scrolled');
+            }
+        });
+    }
+
+    // --- Lógica de la Agenda de Eventos ---
+    const timelineContainer = document.querySelector('.timeline-container');
+    if (timelineContainer) {
+        const monthYearElement = document.getElementById('month-year-timeline');
+        const timelineListElement = document.getElementById('timeline-list');
+        const prevMonthButton = document.getElementById('prev-month-timeline');
+        const nextMonthButton = document.getElementById('next-month-timeline');
+        
+        let currentDate = new Date();
+
+        const allEvents = [
+            { month: 2, day: 2, title: "Aniversario de Fundación", icon: "fa-calendar-star", description: "Se conmemora la fundación del municipio con actos cívicos, desfiles y eventos culturales." },
+            { month: 6, day: 24, title: "Festival Nacional de la Cumbia", icon: "fa-music", description: "El evento cultural más emblemático de El Banco, un homenaje al maestro José Barros." },
+            { month: 9, day: 16, title: "Día de Amor y Amistad", icon: "fa-heart", description: "Una fecha especial para celebrar la amistad y el amor." },
+            { month: 12, day: 8, title: "Fiestas de la Inmaculada Concepción", icon: "fa-church", description: "El inicio de la temporada navideña se marca con esta tradicional fiesta patronal." }
+        ];
+
+        const renderTimeline = () => {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            monthYearElement.textContent = `${currentDate.toLocaleString('es-ES', { month: 'long' }).toUpperCase()} ${year}`;
+            timelineListElement.innerHTML = '';
+
+            const eventsForMonth = allEvents.filter(event => event.month === month + 1).sort((a, b) => a.day - b.day);
+
+            if (eventsForMonth.length === 0) {
+                timelineListElement.innerHTML = '<div class="no-events-timeline">No hay eventos programados para este mes.</div>';
+                return;
+            }
+
+            eventsForMonth.forEach(event => {
+                const eventElement = document.createElement('div');
+                eventElement.classList.add('timeline-card', 'animate-on-scroll');
+                eventElement.innerHTML = `
+                    <div class="timeline-icon"><i class="fas ${event.icon}"></i></div>
+                    <div class="timeline-date">${event.day} <small>${currentDate.toLocaleString('es-ES', { month: 'short' }).toUpperCase()}</small></div>
+                    <div class="timeline-content">
+                        <h5>${event.title}</h5>
+                        <p>${event.description}</p>
+                    </div>
+                `;
+                timelineListElement.appendChild(eventElement);
+            });
+            observeAnimatedElements(); 
+        };
+
+        prevMonthButton.addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            renderTimeline();
+        });
+
+        nextMonthButton.addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            renderTimeline();
+        });
+
+        renderTimeline();
+    }
+
+    // --- Lógica del Modal de Galería ---
+    const galleryModalElement = document.getElementById('galleryModal');
+    if (galleryModalElement) {
+        const galleryModal = new bootstrap.Modal(galleryModalElement);
+        const modalTitle = document.getElementById('galleryModalLabel');
+        const modalDescription = galleryModalElement.querySelector('.modal-description');
+        const modalGallery = galleryModalElement.querySelector('.modal-gallery');
+        const modalMainImage = document.getElementById('modalMainImage');
+
+        document.querySelector('main').addEventListener('click', (e) => {
+            const card = e.target.closest('.feature-item');
+            if (!card) return;
+
+            const description = card.dataset.description;
+            const images = card.dataset.images;
+
+            if (description && images) {
+                const title = card.querySelector('.card-title').textContent;
+                const imageList = images.split(',').map(img => img.trim());
+
+                modalTitle.textContent = title;
+                modalDescription.textContent = description;
+                modalGallery.innerHTML = '';
+
+                imageList.forEach((src, index) => {
+                    if (src) {
+                        const img = document.createElement('img');
+                        img.src = src;
+                        img.alt = `Miniatura de ${title} ${index + 1}`;
+                        img.addEventListener('click', (e) => {
+                            modalMainImage.src = e.target.src;
+                            modalGallery.querySelectorAll('img').forEach(i => i.classList.remove('active-image'));
+                            e.target.classList.add('active-image');
+                        });
+                        modalGallery.appendChild(img);
+                    }
+                });
+
+                if (imageList.length > 0) {
+                    modalMainImage.src = imageList[0];
+                    const firstThumbnail = modalGallery.querySelector('img');
+                    if (firstThumbnail) {
+                        firstThumbnail.classList.add('active-image');
+                    }
+                }
+                galleryModal.show();
+            }
+        });
+    }
+
+    // --- Lógica de Scroll Suave para la Navegación ---
+    document.querySelectorAll('.navbar-nav a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                const navbarHeight = navbar.offsetHeight;
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+            }
+        });
+    });
+
+    // --- Lógica del Filtro de Categorías ---
+    const filterButtonsContainer = document.getElementById('filter-buttons');
+    if (filterButtonsContainer) {
+        filterButtonsContainer.addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON') {
+                const filter = e.target.dataset.filter;
+                document.querySelector('#filter-buttons .btn-primary').classList.replace('btn-primary', 'btn-outline-primary');
+                e.target.classList.replace('btn-outline-primary', 'btn-primary');
+
+                document.querySelectorAll('#lugares .filter-item').forEach(item => {
+                    const categories = item.dataset.category.split(' ');
+                    item.style.display = (filter === 'all' || categories.includes(filter)) ? 'block' : 'none';
+                });
+            }
+        });
+    }
+
+    // --- Lógica para Animaciones de Scroll ---
+    const observeAnimatedElements = () => {
+        if ('IntersectionObserver' in window) {
+            const elementsToAnimate = document.querySelectorAll('.animate-on-scroll');
+            const observer = new IntersectionObserver((entries, observerInstance) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observerInstance.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            elementsToAnimate.forEach(element => observer.observe(element));
+        }
+    };
+    
+    document.querySelectorAll('#lugares .filter-item, #gastronomia .col-lg-6, .timeline-card').forEach(el => el.classList.add('animate-on-scroll'));
+    
+    observeAnimatedElements();
+});
+</script>
+
+</body>
+</html>
