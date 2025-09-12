@@ -1,76 +1,141 @@
-/* --- Estilos Base y de Navegación --- */
+/* ====================================================================
+   1. ESTILOS BASE Y VARIABLES
+   Aquí definimos los colores, fuentes y valores de diseño que se
+   reutilizarán en todo el sitio para mantener la consistencia.
+==================================================================== */
+:root {
+    --primary-color: #0077b6; /* Azul profesional y acuático */
+    --secondary-color: #EBF4FF; /* Azul muy claro para fondos de sección */
+    --text-color: #333;       /* Gris oscuro para texto principal */
+    --text-color-light: #555; /* Gris más claro para texto secundario */
+    --background-color: #FFFFFF;
+    --surface-color: #FFFFFF;   /* Color de fondo para tarjetas y superficies */
+    --border-color: #DEE2E6;
+
+    --font-family-base: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --border-radius: 8px;
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 15px rgba(0,0,0,0.07);
+    --transition-speed: 0.3s;
+}
+
 body {
-    font-family: 'Montserrat', Arial, sans-serif;
-    padding-top: 0;
-    background-color: #f8f9fa;
+    font-family: var(--font-family-base);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    padding-top: 80px; /* Espacio para la barra de navegación fija */
 }
 
-.navbar-transparent {
-    background-color: transparent !important;
-    transition: background-color 0.3s ease-in-out;
+h2.section-title {
+    font-weight: 700;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 3rem;
 }
 
-.navbar-scrolled {
-    background-color: #212529 !important;
+/* ====================================================================
+   2. BARRA DE NAVEGACIÓN (BEM)
+   Estilos para la barra de navegación y su efecto de scroll.
+==================================================================== */
+.navbar {
+    background-color: transparent;
+    padding: 1rem 0;
+    transition: background-color var(--transition-speed) ease, padding var(--transition-speed) ease;
 }
 
-.navbar-brand, .nav-link {
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+.navbar--scrolled {
+    background-color: var(--surface-color);
+    padding: 0.5rem 0;
+    box-shadow: var(--shadow-md);
 }
 
-/* --- Header con Video --- */
+.navbar .navbar-brand {
+    font-weight: 700;
+    color: #fff; /* Siempre blanco al inicio sobre la imagen */
+}
+
+.navbar--scrolled .navbar-brand,
+.navbar--scrolled .navbar__link {
+    color: var(--text-color) !important;
+}
+
+.navbar__link {
+    color: #fff;
+    font-weight: 500;
+    transition: color var(--transition-speed) ease;
+}
+
+.navbar__link:hover {
+    color: var(--primary-color);
+}
+
+.navbar--scrolled .navbar__link:hover {
+    color: var(--primary-color) !important;
+}
+
+/* ====================================================================
+   3. CABECERA (HERO SECTION)
+   La imagen principal que ocupa la parte superior de la página.
+==================================================================== */
 .hero {
     position: relative;
-    height: 100vh;
+    height: 95vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
     text-align: center;
-    overflow: hidden;
+    color: #fff;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('assets/malecon.jpg') no-repeat center center;
+    background-size: cover;
 }
 
-.hero-video {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transform: translate(-50%, -50%);
-    z-index: -1;
-    filter: brightness(0.6);
+.hero__content h1 {
+    font-weight: 700;
+    font-size: 3.5rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
-.hero-content {
-    position: relative;
-    z-index: 1;
-    padding: 2rem;
-    max-width: 800px;
-    text-shadow: 1px 1px 20px rgba(0, 0, 0, 0.7);
+.hero__content p {
+    font-size: 1.25rem;
+    color: rgba(255,255,255,0.9);
+    text-shadow: 0 1px 3px rgba(0,0,0,0.4);
 }
 
-/* --- Filtros de Lugares Turísticos --- */
-#filter-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.5rem;
-}
-
-/* --- Estilos de Tarjetas (Lugares, Gastronomía) --- */
+/* ====================================================================
+   4. TARJETAS (Lugares, Gastronomía)
+   Estilo unificado para todas las tarjetas de contenido.
+==================================================================== */
 .card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
 }
 
 .card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
 }
 
-/* --- Estilos de la Agenda de Eventos (Línea de Tiempo Vertical) --- */
-#eventos.bg-light {
-    background-color: #f8f9fa !important;
+.card .card-title {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.card .card-text {
+    color: var(--text-color-light);
+}
+
+.feature-item {
+    cursor: pointer;
+}
+
+/* ====================================================================
+   5. AGENDA DE EVENTOS (Línea de Tiempo)
+==================================================================== */
+#eventos {
+    background-color: var(--secondary-color);
 }
 
 .timeline-list {
@@ -85,7 +150,7 @@ body {
     left: 40px;
     height: 100%;
     width: 4px;
-    background: #e9ecef;
+    background: var(--border-color);
     border-radius: 2px;
 }
 
@@ -93,9 +158,9 @@ body {
     position: relative;
     margin-left: 80px;
     margin-bottom: 1.5rem;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+    background: var(--surface-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
     padding: 1.5rem;
     display: flex;
     align-items: center;
@@ -109,9 +174,9 @@ body {
     transform: translateY(-50%);
     height: 40px;
     width: 40px;
-    background: #0d6efd;
-    color: white;
-    border: 4px solid #f8f9fa;
+    background: var(--primary-color);
+    color: #fff;
+    border: 4px solid var(--secondary-color);
     border-radius: 50%;
     z-index: 1;
     display: flex;
@@ -122,16 +187,48 @@ body {
 
 .timeline-content h5 {
     font-weight: bold;
+    color: var(--primary-color);
 }
 
 .no-events-timeline {
     text-align: center;
     padding: 2rem;
     font-style: italic;
-    color: #6c757d;
+    color: var(--text-color-light);
 }
 
-/* --- Animaciones de Scroll --- */
+/* ====================================================================
+   6. OTRAS SECCIONES (Historia, Consejos)
+==================================================================== */
+#historia .img-fluid {
+    box-shadow: var(--shadow-md);
+}
+
+.accordion-item {
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius) !important;
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+
+.accordion-button {
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    box-shadow: none;
+}
+
+.accordion-button:focus {
+    box-shadow: 0 0 0 0.25rem rgba(0, 119, 182, 0.25);
+}
+
+/* ====================================================================
+   7. ANIMACIONES DE SCROLL
+==================================================================== */
 .animate-on-scroll {
     opacity: 0;
     transform: translateY(30px);
@@ -143,18 +240,16 @@ body {
     transform: translateY(0);
 }
 
-/* --- Estilos para Modales y Secciones --- */
-.bg-white {
-    background-color: #fff !important;
-}
-
+/* ====================================================================
+   8. MODALES (Galería)
+==================================================================== */
 .modal-gallery img {
     width: 100px;
     height: 75px;
     object-fit: cover;
-    border-radius: 8px;
+    border-radius: var(--border-radius);
     cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform var(--transition-speed) ease, border-color var(--transition-speed) ease;
     border: 2px solid transparent;
 }
 
@@ -163,7 +258,7 @@ body {
 }
 
 .modal-gallery .active-image {
-    border-color: #0d6efd;
+    border-color: var(--primary-color);
 }
 
 #modalMainImageContainer {
@@ -171,8 +266,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #f8f9fa;
-    border-radius: 8px;
+    background-color: var(--secondary-color);
+    border-radius: var(--border-radius);
 }
 
 #modalMainImage {
@@ -181,14 +276,11 @@ body {
     object-fit: contain;
 }
 
-.accordion-button:not(.collapsed) {
-    color: #0c63e4;
-    background-color: #e7f1ff;
-}
-
-/* --- Media Queries para Responsividad --- */
+/* ====================================================================
+   9. MEDIA QUERIES (Diseño Responsivo)
+==================================================================== */
 @media (max-width: 768px) {
-    .hero-content h1 {
+    .hero__content h1 {
         font-size: 2.5rem;
     }
 
@@ -200,9 +292,11 @@ body {
         gap: 1rem;
     }
     .timeline-card .timeline-icon {
-        left: -20px;
-        width: 40px;
-        height: 40px;
+        left: 0px; /* Ajuste para móvil */
+        transform: translateY(-50%);
+    }
+    .timeline-content {
+        padding-left: 30px; /* Espacio para el icono */
     }
 }
 
@@ -217,9 +311,9 @@ body {
     #gastronomia .card img {
         height: 200px;
         object-fit: cover;
-        border-radius: 8px 8px 0 0;
+        border-radius: var(--border-radius) var(--border-radius) 0 0;
     }
     .timeline-card {
-        margin-left: 40px;
+        margin-left: 30px;
     }
 }
